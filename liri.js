@@ -1,5 +1,6 @@
 //Include packages and keys
 require('dotenv').config();
+var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
 var keys = require("./keys.js");
@@ -11,11 +12,11 @@ var keys = require("./keys.js");
 // console.log(process.env.TWITTER_CONSUMER_SECRET);
 // console.log(process.env.TWITTER_ACCESS_TOKEN_KEY);
 // console.log(process.env.TWITTER_ACCESS_TOKEN_SECRET);
+var client = new Twitter(keys.twitter);
+// console.log(keys.twitter);
 
-var spotify = new Spotify({
-  id: process.env.SPOTIFY_CLIENTID,
-  secret: process.env.SPOTIFY_CLIENTSECRET
-});
+var spotify = new Spotify(keys.spotify);
+// console.log(keys.spotify);
 
 var input = process.argv[2];
 
@@ -35,6 +36,22 @@ switch (input) {
   default:
     console.log("You didn't put in a proper input. Please use 'my-tweets', 'spotify-this-song', 'movie-this',or 'do-what-it-says'.");
     break;
+};
+
+//Twitter function
+function getTweets() {
+  var params = {screen_name: 'itsameND'};
+  client.get('statuses/user_timeline', params, function(err, tweets, response) {
+    if (err) {
+      return console.log(err);
+    };
+    console.log(tweets);
+  });
+};
+
+//Spotify function
+function getSong() {
+
 };
 
 //OMDB function
@@ -64,3 +81,5 @@ function getMovieInfo() {
     }
   });
 };
+
+//Random function
