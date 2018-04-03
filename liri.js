@@ -3,6 +3,7 @@ require('dotenv').config();
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
+var fs = require("fs");
 var keys = require("./keys.js");
 // console.log(keys);
 
@@ -41,9 +42,11 @@ switch (input) {
 //Twitter function
 function getTweets() {
   //Grab username and store it in a variable called "params"
-  var params = {screen_name: 'itsameND'};
+  var params = {
+    screen_name: 'itsameND'
+  };
   //Run a request to Twitter API
-  client.get('statuses/user_timeline', params, function(err, tweets, response) {
+  client.get('statuses/user_timeline', params, function (err, tweets, response) {
     if (err) {
       return console.log(err);
     };
@@ -56,7 +59,11 @@ function getSong() {
   //Grab song name and store it in a variable called "songName"
   var songName = process.argv.slice(3).join(' ');
   //Run request to Spotify API
-  spotify.search({ type: 'track', query: songName, limit: 5}, function(err, data) {
+  spotify.search({
+    type: 'track',
+    query: songName,
+    limit: 5
+  }, function (err, data) {
     if (err) {
       return console.log(err);
     };
@@ -93,3 +100,12 @@ function getMovieInfo() {
 };
 
 //Random function
+function justDoIt() {
+  fs.readFile('random.txt', 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(data);
+    // getSong();
+  });
+};
