@@ -7,12 +7,6 @@ var fs = require("fs");
 var keys = require("./keys.js");
 // console.log(keys);
 
-// console.log(process.env.SPOTIFY_CLIENTID);
-// console.log(process.env.SPOTIFY_CLIENTSECRET);
-// console.log(process.env.TWITTER_CONSUMER_KEY);
-// console.log(process.env.TWITTER_CONSUMER_SECRET);
-// console.log(process.env.TWITTER_ACCESS_TOKEN_KEY);
-// console.log(process.env.TWITTER_ACCESS_TOKEN_SECRET);
 var client = new Twitter(keys.twitter);
 // console.log(keys.twitter);
 
