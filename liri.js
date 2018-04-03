@@ -3,14 +3,14 @@ require('dotenv').config();
 var Spotify = require('node-spotify-api');
 var request = require('request');
 var keys = require("./keys.js");
-console.log(keys);
+// console.log(keys);
 
-console.log(process.env.SPOTIFY_CLIENTID);
-console.log(process.env.SPOTIFY_CLIENTSECRET);
-console.log(process.env.TWITTER_CONSUMER_KEY);
-console.log(process.env.TWITTER_CONSUMER_SECRET);
-console.log(process.env.TWITTER_ACCESS_TOKEN_KEY);
-console.log(process.env.TWITTER_ACCESS_TOKEN_SECRET);
+// console.log(process.env.SPOTIFY_CLIENTID);
+// console.log(process.env.SPOTIFY_CLIENTSECRET);
+// console.log(process.env.TWITTER_CONSUMER_KEY);
+// console.log(process.env.TWITTER_CONSUMER_SECRET);
+// console.log(process.env.TWITTER_ACCESS_TOKEN_KEY);
+// console.log(process.env.TWITTER_ACCESS_TOKEN_SECRET);
 
 var spotify = new Spotify({
   id: process.env.SPOTIFY_CLIENTID,
@@ -40,7 +40,7 @@ switch (input) {
 //OMDB function
 function getMovieInfo() {
   // Grab or assemble the movie name and store it in a variable called "movieName"
-  var movieName = process.argv.slice(2).join(' ');
+  var movieName = process.argv.slice(3).join(' ');
 
   // Then run a request to the OMDB API with the movie specified
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
@@ -48,24 +48,19 @@ function getMovieInfo() {
   // This line is just to help us debug against the actual URL.
   console.log(queryUrl);
 
-  // Then create a request to the queryUrl
-  // ...
-
-  // If the request is successful
-  // ...
-
-  // Then log the Release Year for the movie
-  // ...
-
   /*request(urlBeingRequested, callback(err, responseObj, dataReturned))*/
-
   request(queryUrl, function (err, response, data) {
     if (!err && response.statusCode === 200) {
-      console.log(data);
-      console.log('=============');
       console.log(JSON.parse(data));
       console.log('=============');
       console.log(JSON.parse(data).Title);
+      console.log(JSON.parse(data).Year);
+      console.log(JSON.parse(data).Ratings[0]);
+      console.log(JSON.parse(data).Ratings[1]);
+      console.log(JSON.parse(data).Country);
+      console.log(JSON.parse(data).Language);
+      console.log(JSON.parse(data).Plot);
+      console.log(JSON.parse(data).Actors);
     }
   });
 };
