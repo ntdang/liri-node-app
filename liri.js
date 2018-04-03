@@ -1,5 +1,8 @@
 require('dotenv').config();
 var Spotify = require('node-spotify-api');
+var request = require('request');
+var keysINeed = require("./keys.js");
+console.log(keysINeed);
 
 console.log(process.env.SPOTIFY_CLIENTID);
 console.log(process.env.SPOTIFY_CLIENTSECRET);
