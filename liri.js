@@ -56,11 +56,10 @@ function getTweets() {
 //Spotify function
 function getSong(userInput) {
   if (userInput === '') {
-    songName = "The Sign Ace of Base";
+    songName = 'The Sign Ace of Base';
   } else {
     songName = userInput;
   }
-  
   //Run request to Spotify API
   spotify.search({
     type: 'track',
@@ -74,27 +73,16 @@ function getSong(userInput) {
     console.log('Track title: ' + JSON.stringify(data.tracks.items[0].name, null, 2));
     console.log('Preview: ' + JSON.stringify(data.tracks.items[0].preview_url, null, 2));
     console.log('Album name: ' + JSON.stringify(data.tracks.items[0].album.name, null, 2));
-    
-    // if (process.argv[3] === ' ') {
-    //   var songName = 'The Sign';
-    //   spotify.search({
-    //     type: 'track',
-    //     query: songName
-    //   }, function (err, data) {
-    //     if (err) {
-    //       return console.log('Error occurred: ' + err);
-    //     }
-    //     console.log(JSON.stringify(data, null, 2));
-    //   });
-    // };
   });
 };
 
 //OMDB function
-function getMovieInfo() {
-  // Grab or assemble the movie name and store it in a variable called "movieName"
-  var movieName = process.argv.slice(3).join(' ');
-
+function getMovieInfo(userInput) {
+  if (userInput === '') {
+    movieName = 'Mr. Nobody';
+  } else {
+    movieName = userInput;
+  }
   // Then run a request to the OMDB API with the movie specified
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
