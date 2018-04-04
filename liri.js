@@ -3,8 +3,8 @@ require('dotenv').config();
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
-var fs = require("fs");
-var keys = require("./keys.js");
+var fs = require('fs');
+var keys = require('./keys.js');
 // console.log(keys);
 
 var client = new Twitter(keys.twitter);
@@ -60,12 +60,24 @@ function getSong() {
   spotify.search({
     type: 'track',
     query: songName,
-    limit: 5
+    limit: 3
   }, function (err, data) {
     if (err) {
       return console.log(err);
+    }
+    console.log(JSON.stringify(data, null, 2));
+
+    if (process.argv.slice(3) === ' ') {
+      spotify.search({
+        type: 'track',
+        query: 'The Sign'
+      }, function (err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+        console.log(JSON.stringify(data, null, 2));
+      });
     };
-    console.log(data);
   });
 };
 
