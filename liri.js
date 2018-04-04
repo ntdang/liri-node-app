@@ -60,7 +60,7 @@ function getSong(userInput) {
     songName = 'The Sign Ace of Base';
   } else {
     songName = userInput;
-  }
+  };
   //Run request to Spotify API
   spotify.search({
     type: 'track',
@@ -83,7 +83,7 @@ function getMovieInfo(userInput) {
     movieName = 'Mr. Nobody';
   } else {
     movieName = userInput;
-  }
+  };
   // Then run a request to the OMDB API with the movie specified
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
