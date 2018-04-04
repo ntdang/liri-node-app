@@ -7,10 +7,10 @@ This will show your last 20 tweets and when they were created at in your termina
 
 Command: node liri.js spotify-this-song <song name here>
 This will show the following information about the song in your terminal/bash window.
--Artist(s)
--The song's name
--A preview link of the song from Spotify
--The album that the song is from
+  * Artist(s)
+  * The title of the song
+  * A preview link
+  * The album name
 If no song is named, it will default to 'The Sign Ace of Base'
   
 Command: node liri.js movie-this <movie name here>
