@@ -34,6 +34,7 @@ switch (command) {
     break;
 };
 
+
 //Twitter function
 function getTweets() {
   //Grab username and store it in a variable called "params"
@@ -98,7 +99,7 @@ function getMovieInfo(userInput) {
       console.log('Released: ' + JSON.parse(data).Year);
       console.log('IMDB Rating: ' + JSON.parse(data).imdbRating);
       console.log(JSON.parse(data).Ratings[1]);
-      console.log('Country produced: '+ JSON.parse(data).Country);
+      console.log('Country produced: ' + JSON.parse(data).Country);
       console.log('Language: ' + JSON.parse(data).Language);
       console.log('Plot: ' + JSON.parse(data).Plot);
       console.log('Actors: ' + JSON.parse(data).Actors);
@@ -114,6 +115,11 @@ function justDoIt() {
       return console.log(err);
     }
     console.log(data);
-    // getSong();
+    var dataArr = data.split(',');
+    console.log(dataArr);
+    if (dataArr[0] === 'spotify-this-song') {
+      songName = dataArr[1];
+      getSong(songName);
+    };
   });
 };
