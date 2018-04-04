@@ -13,17 +13,18 @@ var client = new Twitter(keys.twitter);
 var spotify = new Spotify(keys.spotify);
 // console.log(keys.spotify);
 
-var input = process.argv[2];
+var command = process.argv[2];
+var userInput = process.argv.slice(3).join(' ');
 
-switch (input) {
+switch (command) {
   case 'my-tweets':
     getTweets();
     break;
   case 'spotify-this-song':
-    getSong();
+    getSong(userInput);
     break;
   case 'movie-this':
-    getMovieInfo();
+    getMovieInfo(userInput);
     break;
   case 'do-what-it-says':
     justDoIt();
@@ -53,31 +54,39 @@ function getTweets() {
 };
 
 //Spotify function
-function getSong() {
-  //Grab song name and store it in a variable called "songName"
-  var songName = process.argv.slice(3).join(' ');
+function getSong(userInput) {
+  if (userInput === '') {
+    songName = "The Sign Ace of Base";
+  } else {
+    songName = userInput;
+  }
+  
   //Run request to Spotify API
   spotify.search({
     type: 'track',
     query: songName,
-    limit: 3
+    limit: 1
   }, function (err, data) {
     if (err) {
       return console.log(err);
     }
-    console.log(JSON.stringify(data, null, 2));
-
-    if (process.argv.slice(3) === ' ') {
-      spotify.search({
-        type: 'track',
-        query: 'The Sign'
-      }, function (err, data) {
-        if (err) {
-          return console.log('Error occurred: ' + err);
-        }
-        console.log(JSON.stringify(data, null, 2));
-      });
-    };
+    console.log('Artist name: ' + JSON.stringify(data.tracks.items[0].artists[0].name, null, 2));
+    console.log('Track title: ' + JSON.stringify(data.tracks.items[0].name, null, 2));
+    console.log('Preview: ' + JSON.stringify(data.tracks.items[0].preview_url, null, 2));
+    console.log('Album name: ' + JSON.stringify(data.tracks.items[0].album.name, null, 2));
+    
+    // if (process.argv[3] === ' ') {
+    //   var songName = 'The Sign';
+    //   spotify.search({
+    //     type: 'track',
+    //     query: songName
+    //   }, function (err, data) {
+    //     if (err) {
+    //       return console.log('Error occurred: ' + err);
+    //     }
+    //     console.log(JSON.stringify(data, null, 2));
+    //   });
+    // };
   });
 };
 
@@ -97,14 +106,14 @@ function getMovieInfo() {
     if (!err && response.statusCode === 200) {
       console.log(JSON.parse(data));
       console.log('=============');
-      console.log(JSON.parse(data).Title);
-      console.log(JSON.parse(data).Year);
-      console.log(JSON.parse(data).Ratings[0]);
+      console.log('Movie title: ' + JSON.parse(data).Title);
+      console.log('Released: ' + JSON.parse(data).Year);
+      console.log('IMDB Rating: ' + JSON.parse(data).imdbRating);
       console.log(JSON.parse(data).Ratings[1]);
-      console.log(JSON.parse(data).Country);
-      console.log(JSON.parse(data).Language);
-      console.log(JSON.parse(data).Plot);
-      console.log(JSON.parse(data).Actors);
+      console.log('Country produced: '+ JSON.parse(data).Country);
+      console.log('Language: ' + JSON.parse(data).Language);
+      console.log('Plot: ' + JSON.parse(data).Plot);
+      console.log('Actors: ' + JSON.parse(data).Actors);
     }
   });
 };
